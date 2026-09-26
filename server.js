@@ -6,7 +6,8 @@ const axios = require("axios");
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -14,26 +15,33 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 
-// Test
+// TEST API
+
 app.get("/api/test", (req, res) => {
+
     res.json({
         success: true,
         message: "PriceCompare backend successfully connected!"
     });
+
 });
 
 
-// Real shopping search
+// REAL SHOPPING SEARCH
+
 app.get("/api/search", async (req, res) => {
 
     const query = req.query.q;
 
     if (!query) {
+
         return res.json({
             success: false,
             message: "Product name enter karo."
         });
+
     }
+
 
     try {
 
@@ -51,41 +59,91 @@ app.get("/api/search", async (req, res) => {
             }
         );
 
-        const shoppingResults = response.data.shopping_results || [];
 
-        const results = shoppingResults.map(item => {
+        const shoppingResults =
+            response.data.shopping_results || [];
 
-            return {
-                store: item.source || "Unknown Store",
-                product: item.title || query,
-                price: item.extracted_price || null,
-                link: item.link || item.product_link || "#",
-                image: item.thumbnail || ""
-            };
 
-        });
+        const results =
+            shoppingResults.map(item => {
+
+                return {
+
+                    store:
+                        item.source ||
+                        "Unknown Store",
+
+                    product:
+                        item.title ||
+                        query,
+
+                    price:
+                        item.extracted_price ||
+                        null,
+
+                    link:
+                        item.link ||
+                        item.product_link ||
+                        "#",
+
+                    image:
+                        item.thumbnail ||
+                        ""
+
+                };
+
+            });
+
 
         res.json({
+
             success: true,
+
             search: query,
+
             results: results
+
         });
 
-    } catch (error) {
+    }
 
-        console.error(error.response?.data || error.message);
+
+    catch (error) {
+
+        console.error(
+            error.response?.data ||
+            error.message
+        );
+
 
         res.status(500).json({
+
             success: false,
-            message: "Shopping search me problem aa gayi."
+
+            message:
+                "Shopping search me problem aa gayi."
+
         });
+
     }
-});
-
-
-app.listen(PORT, () => {
-
-    console.log("PriceCompare Server Chalu Hai!");
-    console.log(`Open: http://localhost:${PORT}`);
 
 });
+
+
+// START SERVER
+
+app.listen(
+    PORT,
+    "0.0.0.0",
+    () => {
+
+        console.log(
+            "PriceCompare Server Chalu Hai!"
+        );
+
+        console.log(
+            `Open: http://localhost:${PORT}`
+        );
+
+    }
+);
