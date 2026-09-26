@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>PriceCompare - Product</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <nav>
+
+            <div class="logo">
+                PriceCompare
+            </div>
+
+            <ul>
+
+                <li>
+                    <a href="index.html">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="index.html#products">
+                        Products
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- PRODUCT DETAILS -->
+
+    <section class="products-section">
+
+        <div
+            id="productDetails"
+            class="product-grid"
+        >
+
+            <div class="loading">
+
+                <h3>
+                    Loading product...
+                </h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <script>
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const product =
+            params.get("product") || "";
+
+
+        const store =
+            params.get("store") || "Store";
+
+
+        const price =
+            params.get("price");
+
+
+        const image =
+            params.get("image") || "";
+
+
+        const link =
+            params.get("link") || "#";
+
+
+        const details =
+            document.getElementById(
+                "productDetails"
+            );
+
+
+
+        function escapeHTML(value) {
+
+            return String(value)
+
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        function safeURL(value) {
+
+            const url =
+                String(value || "").trim();
+
+
+            if (
+                url.startsWith("https://") ||
+                url.startsWith("http://")
+            ) {
+
+                return url;
+
+            }
+
+
+            return "#";
+
+        }
+
+
+
+        if (!product) {
+
+            details.innerHTML = `
+
+                <div class="loading">
+
+                    <h3>
+                        Product nahi mila.
+                    </h3>
+
+                    <p>
+                        Home page se product select karo.
+                    </p>
+
+                    <br>
+
+                    <a
+                        href="index.html"
+                        class="store-button"
+                    >
+                        Back to Home
+                    </a>
+
+                </div>
+
+            `;
+
+        } else {
+
+
+            let priceHTML = "";
+
+
+            if (
+                price &&
+                !isNaN(Number(price))
+            ) {
+
+                priceHTML = `
+
+                    <p class="product-price">
+
+                        ₹${Number(price).toLocaleString("en-IN")}
+
+                    </p>
+
+                `;
+
+            }
+
+
+
+            let imageHTML = "";
+
+
+            if (image) {
+
+                imageHTML = `
+
+                    <img
+                        src="${safeURL(image)}"
+                        alt="${escapeHTML(product)}"
+                        class="product-image"
+                        onerror="this.style.display='none'"
+                    >
+
+                `;
+
+            }
+
+
+
+            details.innerHTML = `
+
+                <div class="product-card">
+
+                    ${imageHTML}
+
+
+                    <div class="product-info">
+
+                        <h3>
+                            ${escapeHTML(product)}
+                        </h3>
+
+
+                        <p class="store-name">
+
+                            ${escapeHTML(store)}
+
+                        </p>
+
+
+                        ${priceHTML}
+
+
+                        <br>
+
+
+                        <a
+                            href="${safeURL(link)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="store-button"
+                        >
+                            Visit Store
+                        </a>
+
+
+                        <br><br>
+
+
+                        <a
+                            href="index.html"
+                            style="
+                                color:#2563eb;
+                                text-decoration:none;
+                                font-weight:bold;
+                            "
+                        >
+                            ← Back to Price Comparison
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
