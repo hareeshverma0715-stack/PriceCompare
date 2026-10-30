@@ -1,227 +1,497 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>PriceCompare - Compare Prices & Save Money</title>
 
-    <title>
-        PriceCompare - Compare Product Prices
-    </title>
+    <meta name="description"
+        content="Compare product prices from different online stores in one place.">
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
     <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-container">
 
-    <header>
+            <a href="index.html" class="logo">
+                Price<span>Compare</span>
+            </a>
 
-        <nav>
+            <nav class="main-nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#categories" class="nav-link">Categories</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#about" class="nav-link">About</a>
+            </nav>
 
-            <div class="logo">
-                PriceCompare
+            <div class="header-auth">
+                <a href="login.html" class="login-link">Login</a>
+                <a href="register.html" class="signup-link">Sign Up</a>
             </div>
 
-
-            <ul>
-
-                <li>
-                    <a href="#">
-                        Home
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#products">
-                        Compare Prices
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#about">
-                        About
-                    </a>
-                </li>
-
-            </ul>
-
-        </nav>
-
+        </div>
     </header>
 
 
+    <main>
 
-    <!-- HERO -->
+        <!-- HERO SECTION -->
+        <section class="hero-section" id="home">
 
-    <section class="hero">
+            <div class="hero-container">
 
-        <h1>
-            Compare Prices. Save Money.
-        </h1>
+                <div class="hero-content">
+
+                    <span class="hero-badge">
+                        SMARTER SHOPPING STARTS HERE
+                    </span>
+
+                    <h1>
+                        Compare Prices.
+                        <br>
+                        <span>Shop Smarter.</span>
+                    </h1>
+
+                    <p>
+                        Search for any product and compare available
+                        prices from different online stores in one place.
+                    </p>
+
+                    <!-- SEARCH FORM -->
+                    <div class="search-container">
+
+                        <form id="searchForm" class="search-form">
+
+                            <div class="search-input-wrapper">
+
+                                <span class="search-icon">🔍</span>
+
+                                <input
+                                    type="text"
+                                    id="searchInput"
+                                    placeholder="Search for a product..."
+                                    autocomplete="off"
+                                >
+
+                            </div>
+
+                            <button type="submit" class="search-button">
+                                Compare Prices
+                            </button>
+
+                        </form>
+
+                        <div
+                            id="searchSuggestions"
+                            class="search-suggestions">
+                        </div>
+
+                    </div>
 
 
-        <p>
-            Search any product and compare prices
-            from multiple online stores in one place.
-        </p>
+                    <!-- POPULAR SEARCHES -->
+                    <div class="popular-searches">
+
+                        <span>Popular:</span>
+
+                        <button type="button"
+                            onclick="quickSearch('iPhone 15')">
+                            iPhone 15
+                        </button>
+
+                        <button type="button"
+                            onclick="quickSearch('Samsung Galaxy S24')">
+                            Samsung Galaxy S24
+                        </button>
+
+                        <button type="button"
+                            onclick="quickSearch('MacBook Air')">
+                            MacBook Air
+                        </button>
+
+                    </div>
+
+                </div>
 
 
+                <!-- HERO DEMO -->
+                <div class="hero-visual">
 
-        <!-- SEARCH -->
+                    <div class="comparison-window">
 
-        <div class="search-container">
+                        <div class="window-top">
 
-            <form
-                id="searchForm"
-                class="search-box"
-            >
+                            <div class="window-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search products like iPhone 15..."
-                    autocomplete="off"
-                >
+                            <span>Price Comparison</span>
+
+                        </div>
+
+                        <div class="demo-product">
+
+                            <div class="demo-product-image">
+                                📱
+                            </div>
+
+                            <div>
+                                <h3>Smartphone</h3>
+                                <p>Compare available prices</p>
+                            </div>
+
+                        </div>
+
+                        <div class="demo-store">
+                            <span>Amazon</span>
+                            <strong>₹59,999</strong>
+                        </div>
+
+                        <div class="demo-store best">
+
+                            <div>
+                                <span>Flipkart</span>
+                                <small>LOWEST PRICE</small>
+                            </div>
+
+                            <strong>₹57,999</strong>
+
+                        </div>
+
+                        <div class="demo-store">
+                            <span>Croma</span>
+                            <strong>₹60,499</strong>
+                        </div>
+
+                        <div class="demo-store">
+                            <span>Other Store</span>
+                            <strong>₹61,200</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
 
 
-                <button type="submit">
-                    Search
+        <!-- IMPORTANT: PRODUCT RESULTS SECTION -->
+        <section id="resultsSection" class="results-section">
+
+            <div class="section-container">
+
+                <div id="filterArea"
+                    style="display:none; margin:24px 0 18px;">
+
+                    <label for="storeFilter"
+                        style="font-weight:600; margin-right:10px;">
+                        Filter by store:
+                    </label>
+
+                    <select id="storeFilter"
+                        style="padding:10px 14px; border:1px solid #d1d5db; border-radius:8px; background:white; min-width:210px;">
+
+                        <option value="all">All Stores</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- PRODUCTS WILL APPEAR HERE -->
+                <div id="productGrid"
+                    style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; width:100%;">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRUST SECTION -->
+        <section class="trust-section">
+
+            <div class="trust-container">
+
+                <div class="trust-item">
+                    <strong>Multiple Stores</strong>
+                    <span>Compare available sellers</span>
+                </div>
+
+                <div class="trust-item">
+                    <strong>Real Search Results</strong>
+                    <span>Powered by shopping data</span>
+                </div>
+
+                <div class="trust-item">
+                    <strong>Easy Comparison</strong>
+                    <span>Find prices in one place</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORIES -->
+        <section class="categories-section" id="categories">
+
+            <div class="section-container">
+
+                <div class="section-heading">
+                    <span>EXPLORE</span>
+                    <h2>Popular Categories</h2>
+                    <p>Search products across different categories.</p>
+                </div>
+
+
+                <div class="categories-grid">
+
+                    <button class="category-card"
+                        onclick="quickSearch('iPhone 15')">
+
+                        <div class="category-icon">📱</div>
+                        <h3>Smartphones</h3>
+                        <p>Phones & accessories</p>
+
+                    </button>
+
+
+                    <button class="category-card"
+                        onclick="quickSearch('Laptop')">
+
+                        <div class="category-icon">💻</div>
+                        <h3>Laptops</h3>
+                        <p>Work & gaming laptops</p>
+
+                    </button>
+
+
+                    <button class="category-card"
+                        onclick="quickSearch('Headphones')">
+
+                        <div class="category-icon">🎧</div>
+                        <h3>Audio</h3>
+                        <p>Headphones & earbuds</p>
+
+                    </button>
+
+
+                    <button class="category-card"
+                        onclick="quickSearch('Smart TV')">
+
+                        <div class="category-icon">📺</div>
+                        <h3>Televisions</h3>
+                        <p>Smart TVs & displays</p>
+
+                    </button>
+
+
+                    <button class="category-card"
+                        onclick="quickSearch('iPad')">
+
+                        <div class="category-icon">📲</div>
+                        <h3>Tablets</h3>
+                        <p>Tablets & accessories</p>
+
+                    </button>
+
+
+                    <button class="category-card"
+                        onclick="quickSearch('PlayStation 5')">
+
+                        <div class="category-icon">🎮</div>
+                        <h3>Gaming</h3>
+                        <p>Consoles & gaming</p>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HOW IT WORKS -->
+        <section class="how-section" id="how-it-works">
+
+            <div class="section-container">
+
+                <div class="section-heading">
+                    <span>SIMPLE PROCESS</span>
+                    <h2>How PriceCompare Works</h2>
+                    <p>Compare available prices in just a few steps.</p>
+                </div>
+
+
+                <div class="steps-grid">
+
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <div class="step-icon">🔎</div>
+                        <h3>Search</h3>
+                        <p>Enter the name of the product you want to buy.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <div class="step-icon">⚖️</div>
+                        <h3>Compare</h3>
+                        <p>See available prices from different online stores.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <div class="step-icon">🛒</div>
+                        <h3>Shop</h3>
+                        <p>Open the available deal and continue to the store.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+        <section class="cta-section">
+
+            <div class="cta-container">
+
+                <div>
+                    <span>READY TO SHOP SMARTER?</span>
+                    <h2>Start comparing prices today.</h2>
+                    <p>Search for your next product and discover available deals.</p>
+                </div>
+
+                <button type="button"
+                    class="cta-button"
+                    onclick="document.getElementById('searchInput').focus()">
+
+                    Start Comparing
+
                 </button>
 
-            </form>
+            </div>
+
+        </section>
 
 
-            <div
-                id="searchSuggestions"
-                class="search-suggestions"
-            ></div>
+        <!-- ABOUT -->
+        <section class="about-section" id="about">
 
-        </div>
+            <div class="section-container">
 
+                <div class="about-content">
 
-        <div
-            style="
-                margin-top:20px;
-                color:#777;
-                font-size:14px;
-            "
-        >
-            Compare prices before you buy
-        </div>
+                    <div class="about-label">
+                        ABOUT PRICECOMPARE
+                    </div>
 
-    </section>
+                    <h2>
+                        One search.
+                        <br>
+                        Multiple prices.
+                    </h2>
 
+                    <p>
+                        PriceCompare helps shoppers discover and compare
+                        available product prices from different online stores.
+                    </p>
 
+                    <p>
+                        Instead of checking multiple websites one by one,
+                        search for a product and see the available shopping
+                        results together.
+                    </p>
 
-    <!-- PRODUCTS -->
+                </div>
 
-    <section
-        class="products-section"
-        id="products"
-    >
+            </div>
 
-        <h2>
-            Price Comparison
-        </h2>
+        </section>
 
-
-        <!-- FILTER -->
-
-        <div
-            id="filterArea"
-            style="display:none;"
-        >
-
-            <label for="storeFilter">
-                Filter Store:
-            </label>
+    </main>
 
 
-            <select id="storeFilter">
+    <!-- FOOTER -->
+    <footer class="site-footer">
 
-                <option value="all">
-                    All Stores
-                </option>
+        <div class="footer-container">
 
-            </select>
+            <div class="footer-brand">
 
-        </div>
+                <a href="index.html" class="logo">
+                    Price<span>Compare</span>
+                </a>
+
+                <p>Compare prices. Shop smarter.</p>
+
+            </div>
 
 
-        <!-- RESULTS -->
+            <div class="footer-links">
 
-        <div
-            id="productGrid"
-            class="product-grid"
-        >
+                <div>
+                    <h4>Product</h4>
+                    <a href="#categories">Categories</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#about">About</a>
+                </div>
 
-            <div class="loading">
-
-                <h3>
-                    Search for a product
-                </h3>
-
-                <p>
-                    Enter a product name above
-                    to compare real shopping prices.
-                </p>
+                <div>
+                    <h4>Account</h4>
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Sign Up</a>
+                </div>
 
             </div>
 
         </div>
 
-    </section>
 
-
-
-    <!-- ABOUT -->
-
-    <section id="about">
-
-        <h2>
-            About PriceCompare
-        </h2>
-
-
-        <p>
-            PriceCompare helps you compare product
-            prices from different online stores in
-            one place. Search for a product, check
-            available prices, sort the results and
-            visit the store to view the deal.
-        </p>
-
-    </section>
-
-
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <p>
-            © 2026 PriceCompare. All rights reserved.
-        </p>
+        <div class="footer-bottom">
+            <p>© 2026 PriceCompare. All rights reserved.</p>
+        </div>
 
     </footer>
 
 
+    <!-- QUICK SEARCH -->
+    <script>
 
+        function quickSearch(product) {
+
+            const input =
+                document.getElementById("searchInput");
+
+            input.value = product;
+
+            document
+                .getElementById("searchForm")
+                .requestSubmit();
+
+        }
+
+    </script>
+
+
+    <!-- MAIN JAVASCRIPT -->
     <script src="script.js"></script>
 
 </body>
-
 </html>
